@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="root_doc">
+	<name>marco.kmz</name>
+	<Schema name="new__SpatialLinesDataFrame___data___structure_list_id___1L___class____data.frame___row.names___c_NA__" id="new__SpatialLinesDataFrame___data___structure_list_id___1L___class____data.frame___row.names___c_NA__">
+		<SimpleField type="int" name="id"></SimpleField>
+	</Schema>
+	<Folder>
+		<name>new__SpatialLinesDataFrame___data___structure_list_id___1L___class____data.frame___row.names___c_NA__</name>
+		<Placemark>
+			<Style>
+				<LineStyle>
+					<color>ff0000ff</color>
+				</LineStyle>
+				<PolyStyle>
+					<fill>0</fill>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#new__SpatialLinesDataFrame___data___structure_list_id___1L___class____data.frame___row.names___c_NA__">
+					<SimpleData name="id">1</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-58.878512,-38.634658,0 -58.878512,-38.621038,0 -58.836918,-38.621038,0 -58.836918,-38.634658,0 -58.878512,-38.634658,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
