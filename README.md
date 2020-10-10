@@ -1,6 +1,6 @@
 ### Data and code for "Deep Learning and Satellite Imagery provide highly precise predictions of genetic diversity and differentiation in a subterranean mammal"
 
-The collection of samples for  genetic analyses was carried out in Las Grutas (~ 10 km south of the city of Necochea, province of Buenos Aires, Argentina; 38?37'S; 58?50'W, between March 2003 and April 2005. A total of 112 individuals of the herbivorous subterranean rodent *Ctenomys australis* were live-trapped and a finger snip sample taken and preserved. All individual were released back to their burrows at the point of capture. For each sample individual  the multilocus genotype for 9 microsatellite  loci was obtained. Geographical coordinates and microsatellite data are in file `micros.str`
+The collection of samples for  genetic analyses was carried out in Las Grutas (~ 10 km south of the city of Necochea, province of Buenos Aires, Argentina; 38\&deg 37'S; 58&deg50'W, between March 2003 and April 2005. A total of 112 individuals of the herbivorous subterranean rodent *Ctenomys australis* were live-trapped and a finger snip sample taken and preserved. All individual were released back to their burrows at the point of capture. For each sample individual  the multilocus genotype for 9 microsatellite  loci was obtained. Geographical coordinates and microsatellite data are in file `micros.str`
 
 An rgb image of the coastal landscape including the sampling area (3.5 x 1.5 km, approx.) was downloaded  in jpg format from GoogleEarth. The image corresponds to a pansharpened Quickbird image of  2005-04-17 which includes the area where the genetic samples were collected. We defined a kml rectangle at  Latitude: -38.63466 , -38.62104; Longitude: -58.87851 , -58.83692 and then downloaded the historical jpg image for that date from google earth at the maximum resolution available. We then cropped the jpg image to the inner edge of the polygon line and georeferenced it in R using the `raster`, `sp`, and `gdal` packages to get  rgb bands with a spatial resolution of 0.85 m. 
 
@@ -9,14 +9,14 @@ DigitalGlobe 2005-04-17
 Catalog ID: 10100100042DA105 
 Cloud Cover: 0%, Quality: 99
 
-QB02 2005-04-17 0.0\% 7.9?
+QB02 2005-04-17 0.0\% 7.9&deg
 Image ID: 10100100042DA100
 Image Clouds: 0.0%
-Image Off Nadir: 9.6?
+Image Off Nadir: 9.6&deg
 Bands: 4-BANDS
 Max GSD: 0.63m
-Sun Elevation: 35.1?
-Max Target Azimuth: 353.7?
+Sun Elevation: 35.1&deg
+Max Target Azimuth: 353.7&deg
 
 #### Processing of  genetic and image data
 
