@@ -12,21 +12,21 @@ Catalog ID: 10100100042DA105
 
 Cloud Cover: 0%, Quality: 99
 
-QB02 2005-04-17 0.0\% 7.9&deg
+QB02 2005-04-17 0.0\% 7.9°
 
 Image ID: 10100100042DA100
 
 Image Clouds: 0.0%
 
-Image Off Nadir: 9.6&deg
+Image Off Nadir: 9.6°
 
 Bands: 4-BANDS
 
 Max GSD: 0.63m
 
-Sun Elevation: 35.1&deg
+Sun Elevation: 35.1°
 
-Max Target Azimuth: 353.7&deg
+Max Target Azimuth: 353.7°
 
 #### Processing of  genetic and image data
 
@@ -62,7 +62,8 @@ extent(area)=extent(readOGR("area.kml"))
 
 Rast=projectRaster(area, crs=utm, method="ngb")
 
-australis=read.structure("micros.Stru", n.ind=112, n.loc=9,                         onerowperind=T, col.lab=1, col.pop=2, col.others = c(3,4),                         row.marknames=1, NA.char="-9", ask=F)
+australis=read.structure("micros.Stru", n.ind=112, n.loc=9, onerowperind=T, col.lab=1, 
+                col.pop=2, col.others = c(3,4), row.marknames=1, NA.char="-9", ask=F)
 
 dfAus=genind2df(australis)
 dfAus[,2:10]=as.integer(unlist(dfAus[,2:10]))
