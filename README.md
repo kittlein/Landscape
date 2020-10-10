@@ -5,17 +5,27 @@ The collection of samples for  genetic analyses was carried out in Las Grutas (~
 An rgb image of the coastal landscape including the sampling area (3.5 x 1.5 km, approx.) was downloaded  in jpg format from GoogleEarth. The image corresponds to a pansharpened Quickbird image of  2005-04-17 which includes the area where the genetic samples were collected. We defined a kml rectangle at  Latitude: -38.63466 , -38.62104; Longitude: -58.87851 , -58.83692 and then downloaded the historical jpg image for that date from google earth at the maximum resolution available. We then cropped the jpg image to the inner edge of the polygon line and georeferenced it in R using the `raster`, `sp`, and `gdal` packages to get  rgb bands with a spatial resolution of 0.85 m. 
 
 **Image technical specifications**
+
 DigitalGlobe 2005-04-17
+
 Catalog ID: 10100100042DA105 
+
 Cloud Cover: 0%, Quality: 99
 
 QB02 2005-04-17 0.0\% 7.9&deg
+
 Image ID: 10100100042DA100
+
 Image Clouds: 0.0%
+
 Image Off Nadir: 9.6&deg
+
 Bands: 4-BANDS
+
 Max GSD: 0.63m
+
 Sun Elevation: 35.1&deg
+
 Max Target Azimuth: 353.7&deg
 
 #### Processing of  genetic and image data
