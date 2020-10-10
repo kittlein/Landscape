@@ -168,7 +168,7 @@ opt =Adam(lr=0.001)
 model.compile(optimizer=opt, loss="mean_squared_error", metrics=[r2_keras])
 
 lr_reducer = LearningRateScheduler(lambda x: 0.001 * 0.995 ** x)
-EarLY=EarlyStopping(monitor='val_loss', mode='min', min_delta=0, patience=200, verbose=0, restore_best_weights=True)
+EarLY=EarlyStopping(monitor='val_loss', mode='min', min_delta=0, patience=50, verbose=0, restore_best_weights=True)
 
 filepath = 'modelFst_.h5'
 checkpoint = ModelCheckpoint(filepath, monitor='val_loss', mode='min', verbose=1, save_best_only=True)
@@ -197,7 +197,8 @@ Vaigen=Vdatagen.flow(X_train, Y_train, batch_size=bs)
 tsteps =  X_train.shape[0]*0.7/bs
 vsteps =  X_train.shape[0]*0.3/bs
 
-history = model.fit_generator(aigen, epochs = epochs,  validation_data = Vaigen, verbose=1, steps_per_epoch = tsteps, validation_steps=vsteps,              callbacks=[lr_reducer, EarLY, checkpoint])
+history = model.fit_generator(aigen, epochs = epochs,  validation_data = Vaigen, verbose=1, steps_per_epoch = tsteps, 
+                              validation_steps=vsteps, callbacks=[lr_reducer, EarLY, checkpoint])
 
 ```
 This procedure yielded r<sup>2</sup> values ~ 0.8 for both  `mAlleles` and  `Fst`
@@ -242,7 +243,7 @@ library(landscapemetrics)
 
 igData=fread("giData.csv", header=F)
 
-x_train <- array_reshape(data.matrix(igData[,-(1:7)])/255,                    c(nrow(igData),117, 117, 3), order="F")
+x_train <- array_reshape(data.matrix(igData[,-(1:7)])/255, c(nrow(igData),117, 117, 3), order="F")
                         
 MetricsLandscape=function(landscape){
   df[1, 1] =lsm_l_ai(landscape)$value
@@ -373,7 +374,9 @@ df = pd.read_csv('LSMetrics.csv')
 
 # Landscape metrics with pairwise corrleation below 0.8
 
-vars = ["lsm_l_area_mn", "lsm_l_area_sd", "lsm_l_cai_cv", "lsm_l_circle_mn", "lsm_l_circle_sd",  "lsm_l_cohesion", "lsm_l_contig_cv", "lsm_l_contig_sd", "lsm_l_dcad" , "lsm_l_dcore_cv",  "lsm_l_enn_cv", "lsm_l_enn_mn", "lsm_l_frac_sd", "lsm_l_gyrate_cv", "lsm_l_lpi" , "lsm_l_mutinf",        "lsm_l_pafrac", "lsm_l_shape_cv", "lsm_l_shape_mn"] 
+vars = ["lsm_l_area_mn", "lsm_l_area_sd", "lsm_l_cai_cv", "lsm_l_circle_mn", "lsm_l_circle_sd",  "lsm_l_cohesion", "lsm_l_contig_cv", 
+         "lsm_l_contig_sd", "lsm_l_dcad" , "lsm_l_dcore_cv",  "lsm_l_enn_cv", "lsm_l_enn_mn", "lsm_l_frac_sd", "lsm_l_gyrate_cv", 
+         "lsm_l_lpi" , "lsm_l_mutinf",        "lsm_l_pafrac", "lsm_l_shape_cv", "lsm_l_shape_mn"] 
 
 X =  df[vars]
 
