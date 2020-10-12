@@ -1,4 +1,4 @@
-### Data and code for "Deep Learning and Satellite Imagery provide highly precise predictions of genetic diversity and differentiation in a subterranean mammal"
+### Data and code for "Deep Learning and Satellite Imagery predict genetic diversity and differentiation in a subterranean mammal"
 
 The collection of samples for  genetic analyses was carried out in Las Grutas (~ 10 km south of the city of Necochea, province of Buenos Aires, Argentina; 38°37'S; 58°50'W, between March 2003 and April 2005. A total of 112 individuals of the herbivorous subterranean rodent *Ctenomys australis* were live-trapped and a finger snip sample taken and preserved. All individual were released back to their burrows at the point of capture. For each sample individual  the multilocus genotype for 9 microsatellite  loci was obtained. Geographical coordinates and microsatellite data are in file `micros.str`
 
