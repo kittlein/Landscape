@@ -405,4 +405,32 @@ Shapley values are now available in `shap_values` and the contribuion of landsca
 shap.dependence_plot("lsm_l_shape_cv", shap_values, X)
 ```
 
+#### Transfer of predictions to the whole study area
+
+The weights of the CNN model saved in `modelFst_.h5` (see above) can be loaded and used to predict the spatial distribution of Fst values in the study area. This is straightforward with `model.predict()' in `keras`. Loading the jpg image of the study area (or other areas for that matter) we can get predictions for different one-hectare cuts.
+
+```
+model.load_weights('modelFst_.h5')
+from matplotlib import image
+from matplotlib import pyplot
+
+# load image as pixel array
+image = image.imread('area.jpg')
+
+# random xy cells of the image
+xl=np.random.randint(117,image.shape[0]-117)
+xu=xl+117
+yl=np.random.randint(117,image.shape[1]-117)
+yu=yl+117
+
+# get a random 117 by 117 crop of the image
+imgc=image[xl:xu,yl:yu,:]
+# display the array of pixels as an image
+pyplot.imshow(imgc)
+pyplot.show()
+
+x_array=imgc/255
+
+print(model.predict(x_array.reshape((1,117,117,3))))
+```
 
