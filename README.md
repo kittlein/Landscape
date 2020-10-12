@@ -407,7 +407,7 @@ shap.dependence_plot("lsm_l_shape_cv", shap_values, X)
 
 #### Transfer of predictions to the whole study area
 
-The weights of the CNN model saved in `modelFst_.h5` (see above) can be loaded and used to predict the spatial distribution of Fst values in the study area. This is straightforward with `model.predict()' in `keras`. Loading the jpg image of the study area (or other areas for that matter) we can get predictions for different one-hectare cuts.
+The weights of the CNN model saved in `modelFst_.h5` (see above) can be loaded and used to predict the spatial distribution of Fst values in the study area. This is straightforward with `model.predict()` in `keras`. Loading the jpg image of the study area (or other areas for that matter) we can get predictions for different one-hectare cuts.
 
 ```
 model.load_weights('modelFst_.h5')
