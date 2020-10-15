@@ -1,4 +1,4 @@
-### Data and code for "Deep Learning and Satellite Imagery predict genetic diversity and differentiation in a subterranean mammal"
+### Data and code for "Deep Learning and Satellite Imagery predict genetic diversity and differentiation"
 
 The collection of samples for  genetic analyses was carried out in Las Grutas (~ 10 km south of the city of Necochea, province of Buenos Aires, Argentina; 38°37'S; 58°50'W, between March 2003 and April 2005. A total of 112 individuals of the herbivorous subterranean rodent *Ctenomys australis* were live-trapped and a finger snip sample taken and preserved. All individual were released back to their burrows at the point of capture. For each sample individual  the multilocus genotype for 9 microsatellite  loci was obtained. Geographical coordinates and microsatellite data are in file `micros.str`
 
@@ -62,8 +62,7 @@ extent(area)=extent(readOGR("area.kml"))
 
 Rast=projectRaster(area, crs=utm, method="ngb")
 
-australis=read.structure("micros.Stru", n.ind=112, n.loc=9, onerowperind=T, col.lab=1, 
-                col.pop=2, col.others = c(3,4), row.marknames=1, NA.char="-9", ask=F)
+australis=read.structure("micros.Stru", n.ind=112, n.loc=9, onerowperind=T, col.lab=1, col.pop=2, col.others = c(3,4), row.marknames=1, NA.char="-9", ask=F)
 
 dfAus=genind2df(australis)
 dfAus[,2:10]=as.integer(unlist(dfAus[,2:10]))
@@ -105,7 +104,7 @@ dfAus$pop[incluidos]=1
 Fst=basic.stats(dfAus)$overall["Fst"]
 NumAle=sum(allelic.richness(dfAus[incluidos,])$Ar)
 
-GeneImageData=data.frame(t(c(length(incluidos), extent(polyG)[],  Fst, NumAle, img[])))
+GeneImageData=data.frame(t(c(length(incluidos), Fst, NumAle, img[])))
 
 write_csv(GeneImageData, "giData.csv", append = TRUE)
 }
@@ -135,10 +134,10 @@ from keras.optimizers import Adam
 train = pd.read_csv("giData.csv", header=None)
 
 # Fst values to Y_train
-Y_train = train[[5]]
+Y_train = train[[1]]
 
-# predictors in columns 8 to 41074
-X_train = train.drop(train.columns[[range(7)]], axis = 1)
+# predictors in columns 4 to 41070
+X_train = train.drop(train.columns[[range(3)]], axis = 1)
 X_train = X_train / 255.0
 X_train = X_train.values.reshape(-1,117,117,3, order="F")
 
@@ -235,16 +234,15 @@ writeRaster(Suitable, "Suitable.tif", format="GTiff")
 
 The geotiff file `Suitable.tif` is then used to obtain landscape metrics for patches of suitable habitat for the one-hectare squares previously used for training the Convolutional Neural Network.
 
+For example for a one-hectare section delimited by x coordinates from 339680.13 to 339780.13 and y coordinates from -4276704 to -4276604
 
 #### R code to obtain Landscape Metrics of suitable habitat
 
 ```
 library(landscapemetrics)
 
-igData=fread("giData.csv", header=F)
+Suitable=raster("Suitable.tif")
 
-x_train <- array_reshape(data.matrix(igData[,-(1:7)])/255, c(nrow(igData),117, 117, 3), order="F")
-                        
 MetricsLandscape=function(landscape){
   df[1, 1] =lsm_l_ai(landscape)$value
   df[1, 2] =lsm_l_area_cv(landscape)$value
@@ -314,37 +312,18 @@ MetricsLandscape=function(landscape){
   return(df)
 }
 
-x=list()
+e=extent(c(339680.13, 339780.13, -4276704, -4276604))
 
-for(row in 1:nrow(igData){
-e=extent(c(unlist(igData[row,2:5])))
 landscape=crop(Suitable, e)
 proj4string(landscape)=CRS("+proj=utm +zone=21 +datum=WGS84")
+
 extent(landscape)=e
-x[[row]]=MetricsLandscape(landscape)
-}
 
-LSMetrics=data.frame(matrix(NA, 1000, length(names(x[[1]]))))
-colnames(LSMetrics)=names(x[[1]])
-
-
-for(j in 1:1000){
-  LSMetrics[j,]=x[[j]]
-}
-
-CNAs=apply(LSMetrics, 2, function(x)sum(is.na(x)==T))
-LSMetrics=LSMetrics[,which(CNAs==0)]
-
-Fst=as.vector(unlist(igData[,6]))
-MAlleles=as.vector(unlist(igData[,7]/datos[,1]))
-
-LSMetrics=cbind(Fst, MAlleles, LSMetrics)
-
-LSMetrics=na.omit(LSMetrics)
-
-readr::write_csv(LSMetrics, "LSMetrics.csv")                         
+MetricsLandscape(landscape)
 ```
-The file `LSMetrics.csv` contains genetic indexes and 65 landscape metrics for all one-hectare squares. To use these variables in a Random Forest model a subset of 19 variables with pearson correlation below 0.8 was identified with the following R script.
+`MetricsLandscape(landscape)` gives 65 landscape metrics for the example one-hectare section of landscape.
+
+These metrics are then calculated for all one-hectare sections and saved to a `csv` file. The file `LSMetrics.csv` contains genetic indexes and 65 landscape metrics for all one-hectare squares. To use these variables in a Random Forest model a subset of 19 variables with pearson correlation below 0.8 was identified with the following R script.
 
 ```
 library(caret)
@@ -433,4 +412,3 @@ x_array=imgc/255
 
 print(model.predict(x_array.reshape((1,117,117,3))))
 ```
-
